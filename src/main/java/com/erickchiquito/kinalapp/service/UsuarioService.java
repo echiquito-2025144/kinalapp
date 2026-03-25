@@ -45,7 +45,7 @@ public class UsuarioService implements IUsuarioService{
     }
 
     @Override
-    public Usuario eliminar (int codigoUsuario){
+    public void eliminar (int codigoUsuario){
         if (!usuarioRepository.existsById(codigoUsuario))
             throw new RuntimeException("Usuario no encontrado con codigo " + codigoUsuario);
         usuarioRepository.deleteById(codigoUsuario);
