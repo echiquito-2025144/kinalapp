@@ -1,10 +1,10 @@
 package com.erickchiquito.kinalapp.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table( name = "Ventas")
@@ -13,20 +13,29 @@ public class Venta {
     @Column(name = "Ventas")
     private int codigoVenta;
     @Column
-    private DateTimeFormat fechaVenta;
+    private LocalDate fechaVenta;
     @Column
-    private long total;
+    private BigDecimal total;
     @Column
     private int estado;
 
-    public Venta() {
-    }
+    @ManyToOne
+    @JoinColumn( name = "Clientes_dpi_Cliente")
+    private Cliente cliente;
 
-    public Venta(int codigoVenta, DateTimeFormat fechaVenta, long total, int estado) {
+    @ManyToOne
+    @JoinColumn( name = "Usuarios_codigo_usuario")
+    private Usuario usuario;
+
+    public Venta() {}
+
+    public Venta(int codigoVenta, LocalDate fechaVenta, BigDecimal total, int estado, Cliente cliente, Usuario usuario) {
         this.codigoVenta = codigoVenta;
         this.fechaVenta = fechaVenta;
         this.total = total;
         this.estado = estado;
+        this.cliente = cliente;
+        this.usuario = usuario;
     }
 
     public int getCodigoVenta() {
@@ -37,19 +46,19 @@ public class Venta {
         this.codigoVenta = codigoVenta;
     }
 
-    public DateTimeFormat getFechaVenta() {
+    public LocalDate getFechaVenta() {
         return fechaVenta;
     }
 
-    public void setFechaVenta(DateTimeFormat fechaVenta) {
+    public void setFechaVenta(LocalDate fechaVenta) {
         this.fechaVenta = fechaVenta;
     }
 
-    public long getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(long total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
@@ -59,5 +68,21 @@ public class Venta {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
