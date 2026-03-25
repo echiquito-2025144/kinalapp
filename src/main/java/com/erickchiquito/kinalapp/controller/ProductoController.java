@@ -55,5 +55,5 @@ public class ProductoController {
     @GetMapping("/activos")
     public ResponseEntity<List<Productos>> listarActivos(){
         return ResponseEntity.ok(productoService.listarActivos());
-    } 
+    }
 }
