@@ -38,4 +38,5 @@ public class VentaService {
     public void deleteById(int id){
         ventaRepository.deleteById(id);
     }
+    //editar este archivo
 }
