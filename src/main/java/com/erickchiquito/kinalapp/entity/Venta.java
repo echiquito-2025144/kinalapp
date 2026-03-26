@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Table( name = "Ventas")
 public class Venta {
     @Id
-    @Column(name = "Ventas")
+    @Column(name = "codigo_venta")
     private int codigoVenta;
     @Column
     private LocalDate fechaVenta;
