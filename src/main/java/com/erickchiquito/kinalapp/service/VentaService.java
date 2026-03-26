@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class VentaService {
+public class VentaService implements IVentaService{
 
     private final VentaRepository ventaRepository;
 
@@ -38,5 +38,5 @@ public class VentaService {
     public void deleteById(int id){
         ventaRepository.deleteById(id);
     }
-    //editar este archivo
+
 }
