@@ -26,15 +26,20 @@ public class DetalleVenta {
     @JoinColumn(name = "ventas_codigo_venta")
     private Venta venta;
 
+    @ManyToOne
+    @JoinColumn(name = "productos_codigo_producto")
+    private Productos productos;
+
     public DetalleVenta() {
     }
 
-    public DetalleVenta(int codigoDetalleVenta, int cantidad, BigDecimal precioUnitario, BigDecimal subtotal, Venta venta) {
+    public DetalleVenta(int codigoDetalleVenta, int cantidad, BigDecimal precioUnitario, BigDecimal subtotal, Venta venta, Productos productos) {
         this.codigoDetalleVenta = codigoDetalleVenta;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.subtotal = subtotal;
         this.venta = venta;
+        this.productos = productos;
     }
 
     public int getCodigoDetalleVenta() {
@@ -75,5 +80,13 @@ public class DetalleVenta {
 
     public void setVenta(Venta venta) {
         this.venta = venta;
+    }
+
+    public Productos getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Productos productos) {
+        this.productos = productos;
     }
 }
