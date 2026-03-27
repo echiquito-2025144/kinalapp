@@ -1,9 +1,8 @@
 package com.erickchiquito.kinalapp.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Productos")
@@ -19,6 +18,9 @@ public class Productos {
     private int stock;
     @Column
     private int estado;
+
+    @OneToMany(mappedBy = "productos")
+    private List<DetalleVenta> detalleVentas;
 
     public Productos() {
     }
