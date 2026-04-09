@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Cliente</title>
+</head>
+<body>
+
+<h1>Crear Cliente</h1>
+
+<form th:action="@{/vista/clientes/guardar}" th:object="${cliente}" method="post">
+
+    <label>DPI:</label>
+    <input type="text" th:field="*{DPICliente}" required />
+    <br><br>
+
+    <label>Nombre:</label>
+    <input type="text" th:field="*{nombreCliente}" required />
+    <br><br>
+
+    <label>Apellido:</label>
+    <input type="text" th:field="*{apellidoCliente}" required />
+    <br><br>
+
+    <label>Dirección:</label>
+    <input type="text" th:field="*{direccion}" />
+    <br><br>
+
+    <label>Estado:</label>
+    <input type="number" th:field="*{estado}" value="1" />
+    <br><br>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<!-- Volver a la lista -->
+<a href="/vista/clientes">Volver a la lista</a>
+
+</body>
+</html>
