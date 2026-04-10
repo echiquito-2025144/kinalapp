@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Productos</title>
+</head>
+<body>
+
+<h1>Productos</h1>
+
+
+<a href="/vista/productos/nuevo">Nuevo Producto</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="p : ${productos}">
+        <td th:text="${p.codigoProducto}"></td>
+        <td th:text="${p.nombreProducto}"></td>
+        <td th:text="${p.precio}"></td>
+        <td th:text="${p.stock}"></td>
+        <td th:text="${p.estado}"></td>
+
+        <td>
+            <button type="button" onclick="mostrarMensajeEditar()">
+                Editar
+            </button>
+
+            <button type="button" onclick="mostrarMensajeEliminar()">
+                Eliminar
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function mostrarMensajeEditar() {
+        alert("No se puede editar la llave primaria (codigoProducto)");
+    }
+
+    function mostrarMensajeEliminar() {
+        alert("No se puede eliminar este producto");
+    }
+</script>
+
+</body>
+</html>
