@@ -20,12 +20,6 @@ public class ProductoVistaController {
     @GetMapping
     public String listar(Model model){
         model.addAttribute("productos", productoService.listarTodos());
-        return "productos"; // productos.html
-    }
-
-    @GetMapping("/nuevo")
-    public String nuevoProducto(Model model){
-        model.addAttribute("producto", new Productos());
-        return "producto-form";
+        return "productos"; 
     }
 }
