@@ -20,7 +20,7 @@ public class UsuarioVistaController {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("usuarios", usuarioService.listarTodos());
-        return "usuarios";
+        return "usuario";
     }
 
     @GetMapping("/nuevo")
