@@ -1,0 +1,53 @@
+<form th:object="${usuario}" method="post" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    
+    <label>Código Usuario:</label>
+    <input type="text" th:field="*{codigoUsuario}" readonly />
+
+    <br>
+
+    <label>Username:</label>
+    <input type="text" th:field="*{username}" />
+
+    <br>
+
+    <label>Password:</label>
+    <input type="text" th:field="*{password}" />
+
+    <br>
+
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" />
+
+    <br>
+
+    <label>Rol:</label>
+    <input type="text" th:field="*{rol}" />
+
+    <br>
+
+    <label>Estado:</label>
+    <input type="number" th:field="*{estado}" />
+
+    <br><br>
+
+    <!-- BOTONES BLOQUEADOS -->
+    <button type="button" onclick="mostrarMensajeEditar()">
+        Editar
+    </button>
+
+    <button type="button" onclick="mostrarMensajeEliminar()">
+        Eliminar
+    </button>
+
+</form>
+
+<script>
+    function mostrarMensajeEditar() {
+        alert("No se puede editar la llave primaria (codigoUsuario)");
+    }
+
+    function mostrarMensajeEliminar() {
+        alert("No se puede eliminar este usuario");
+    }
+</script>
