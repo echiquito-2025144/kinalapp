@@ -1,5 +1,6 @@
 package com.erickchiquito.kinalapp.controller;
 
+import com.erickchiquito.kinalapp.entity.Usuario;
 import com.erickchiquito.kinalapp.service.IUsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,5 +21,11 @@ public class UsuarioVistaController {
     public String listar(Model model) {
         model.addAttribute("usuarios", usuarioService.listarTodos());
         return "usuarios";
+    }
+
+    @GetMapping("/nuevo")
+    public String nuevoUsuario(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "usuario-form";
     }
 }
