@@ -1,0 +1,48 @@
+<form th:object="${producto}" method="post" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <!-- ID BLOQUEADO -->
+    <label>Código Producto:</label>
+    <input type="text" th:field="*{codigoProducto}" readonly />
+
+    <br>
+
+    <label>Nombre:</label>
+    <input type="text" th:field="*{nombreProducto}" />
+
+    <br>
+
+    <label>Precio:</label>
+    <input type="number" step="0.01" th:field="*{precio}" />
+
+    <br>
+
+    <label>Stock:</label>
+    <input type="number" th:field="*{stock}" />
+
+    <br>
+
+    <label>Estado:</label>
+    <input type="number" th:field="*{estado}" />
+
+    <br><br>
+
+    
+    <button type="button" onclick="mostrarMensajeEditar()">
+        Editar
+    </button>
+
+    <button type="button" onclick="mostrarMensajeEliminar()">
+        Eliminar
+    </button>
+
+</form>
+
+<script>
+    function mostrarMensajeEditar() {
+        alert("No se puede editar la llave primaria (codigoProducto)");
+    }
+
+    function mostrarMensajeEliminar() {
+        alert("No se puede eliminar este producto");
+    }
+</script>
