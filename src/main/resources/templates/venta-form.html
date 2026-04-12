@@ -1,0 +1,33 @@
+<div class="card">
+    <h2>Registrar Nueva Venta</h2>
+    <form th:action="@{/vista/ventas/guardar}" th:object="${venta}" method="post">
+
+        <div class="form-group">
+            <label>Código Venta (PK):</label>
+            <input type="number" th:field="*{codigoVenta}" required />
+        </div>
+
+        <div class="form-group">
+            <label>Cliente (FK):</label>
+            <select th:field="*{cliente}" required>
+                <option value="">Seleccione un cliente...</option>
+                <option th:each="c : ${clientes}"
+                        th:value="${c.DPICliente}"
+                        th:text="${c.nombreCliente + ' ' + c.apellidoCliente}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Vendedor (FK):</label>
+            <select th:field="*{usuario}" required>
+                <option value="">Seleccione el vendedor...</option>
+                <option th:each="u : ${usuarios}"
+                        th:value="${u.codigoUsuario}"
+                        th:text="${u.nombreUsuario}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-save">Guardar Venta</button>
+        <a th:href="@{/vista/ventas}" class="btn-back">Volver al listado</a>
+    </form>
+</div>
