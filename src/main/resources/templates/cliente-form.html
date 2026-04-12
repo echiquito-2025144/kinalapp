@@ -2,39 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Cliente</title>
+    <title>KinalApp - Registro de Cliente</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
+        .card { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { color: #007bff; text-align: center; margin-bottom: 25px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .btn-save { background-color: #007bff; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; }
+        .btn-save:hover { background-color: #0056b3; }
+        .links-container { text-align: center; margin-top: 20px; }
+        .btn-link { color: #666; text-decoration: none; font-size: 14px; display: block; margin: 8px 0; }
+        .btn-link:hover { color: #007bff; text-decoration: underline; }
+    </style>
 </head>
 <body>
 
-<h1>Crear Cliente</h1>
+<div class="card">
+    <h2>Nuevo Cliente</h2>
 
-<form th:action="@{/vista/clientes/guardar}" th:object="${cliente}" method="post">
+    <form th:action="@{/vista/clientes/guardar}" th:object="${cliente}" method="post">
 
-    <label>DPI:</label>
-    <input type="text" th:field="*{DPICliente}" required />
-    <br><br>
+        <div class="form-group">
+            <label>DPI:</label>
+            <input type="text" th:field="*{DPICliente}" required placeholder="Ingrese DPI" />
+        </div>
 
-    <label>Nombre:</label>
-    <input type="text" th:field="*{nombreCliente}" required />
-    <br><br>
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" th:field="*{nombreCliente}" required placeholder="Nombres" />
+        </div>
 
-    <label>Apellido:</label>
-    <input type="text" th:field="*{apellidoCliente}" required />
-    <br><br>
+        <div class="form-group">
+            <label>Apellido:</label>
+            <input type="text" th:field="*{apellidoCliente}" required placeholder="Apellidos" />
+        </div>
 
-    <label>Dirección:</label>
-    <input type="text" th:field="*{direccion}" />
-    <br><br>
+        <div class="form-group">
+            <label>Dirección:</label>
+            <input type="text" th:field="*{direccion}" placeholder="Ciudad, Guatemala" />
+        </div>
 
-    <label>Estado:</label>
-    <input type="number" th:field="*{estado}" value="1" />
-    <br><br>
+        <div class="form-group">
+            <label>Estado (1=Activo):</label>
+            <input type="number" th:field="*{estado}" value="1" />
+        </div>
 
-    <button type="submit">Guardar</button>
-</form>
+        <button type="submit" class="btn-save">Guardar Cliente</button>
+    </form>
 
+    <div class="links-container">
+        <a th:href="@{/}" class="btn-link">🏠 Ir al Dashboard Principal</a>
 
-<a href="/vista/clientes">Volver a la lista</a>
+        <a th:href="@{/vista/clientes}" class="btn-link">← Volver al Listado</a>
+    </div>
+</div>
 
 </body>
 </html>
