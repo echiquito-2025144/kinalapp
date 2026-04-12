@@ -13,7 +13,7 @@ import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vista/clientes")
+@RequestMapping("/api/clientes")
 public class ClienteController {
 
     private final IClienteService clienteService;
