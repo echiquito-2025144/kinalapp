@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Detalles de Venta</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 40px; }
+        .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #e67e22; border-bottom: 3px solid #e67e22; padding-bottom: 10px; }
+        .btn-nuevo { background-color: #e67e22; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background-color: #e67e22; color: white; padding: 15px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        tr:hover { background-color: #fff5eb; }
+        .btn-action { padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; background: #fff; font-weight: bold; }
+        .btn-edit { color: #f0ad4e; }
+        .btn-delete { color: #d9534f; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Detalles de Artículos Vendidos</h1>
+    <a th:href="@{/vista/detalles/nuevo}" class="btn-nuevo">+ Agregar Producto a Venta</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID Detalle</th>
+            <th>No. Venta</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio U.</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="d : ${detalles}">
+            <td th:text="${d.codigoDetalleVenta}"></td>
+            <td th:text="${d.venta != null ? d.venta.codigoVenta : 'N/A'}"></td>
+            <td th:text="${d.productos != null ? d.productos.nombreProducto : 'Desconocido'}"></td>
+            <td th:text="${d.cantidad}"></td>
+            <td th:text="'Q' + ${d.precioUnitario}"></td>
+            <td th:text="'Q' + ${d.subtotal}"></td>
+            <td>
+                <button type="button" class="btn-action btn-edit" onclick="alert('No se permite editar detalles de venta para asegurar la integridad contable.')">Editar</button>
+                <button type="button" class="btn-action btn-delete" onclick="alert('No se puede eliminar el detalle: La llave primaria está vinculada a una factura activa.')">Eliminar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
