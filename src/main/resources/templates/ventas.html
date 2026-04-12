@@ -1,0 +1,17 @@
+<tr th:each="v : ${ventas}">
+    <td th:text="${v.codigoVenta}"></td>
+    <td th:text="${v.fechaVenta}"></td>
+    <td th:text="${v.cliente.nombreCliente + ' ' + v.cliente.apellidoCliente}"></td>
+    <td th:text="${v.usuario.nombreUsuario}"></td>
+    <td th:text="'Q' + ${v.total}"></td>
+    <td th:text="${v.estado == 1 ? 'Activa' : 'Finalizada'}"></td>
+    <td>
+        <button type="button" class="btn-edit"
+                onclick="alert('No se pueden editar registros para proteger la integridad de las llaves primarias y foráneas.')"
+                style="background:none; border:none; cursor:pointer;">Editar</button>
+
+        <button type="button" class="btn-delete"
+                onclick="alert('Eliminación deshabilitada: No se puede eliminar una llave primaria o foránea activa.')"
+                style="background:none; border:none; cursor:pointer;">Eliminar</button>
+    </td>
+</tr>
