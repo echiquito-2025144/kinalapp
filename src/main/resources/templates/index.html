@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .header { text-align: center; padding: 40px 0; background: #343a40; color: white; border-radius: 15px; margin-bottom: 30px; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        .card i { font-size: 40px; margin-bottom: 15px; }
+        .card h3 { margin: 10px 0; color: #333; }
+
+        /* Colores temáticos que ya usamos */
+        .c-clientes { border-top: 8px solid #007bff; }
+        .c-productos { border-top: 8px solid #6c757d; }
+        .c-usuarios { border-top: 8px solid #28a745; }
+        .c-ventas { border-top: 8px solid #17a2b8; }
+        .c-detalles { border-top: 8px solid #e67e22; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>SISTEMA INTEGRAL KINALAPP</h1>
+    <p>Bienvenido, Erick Chiquito | Control de Inventario y Ventas</p>
+</div>
+
+<div class="grid-container">
+    <a th:href="@{/vista/clientes}" class="card c-clientes">
+        <h3>Clientes</h3>
+        <p>Gestión de base de datos de compradores</p>
+    </a>
+
+    <a th:href="@{/vista/productos}" class="card c-productos">
+        <h3>Productos</h3>
+        <p>Control de inventario y precios</p>
+    </a>
+
+    <a th:href="@{/vista/usuarios}" class="card c-usuarios">
+        <h3>Usuarios</h3>
+        <p>Vendedores y administradores</p>
+    </a>
+
+    <a th:href="@{/vista/ventas}" class="card c-ventas">
+        <h3>Ventas</h3>
+        <p>Registro de transacciones principales</p>
+    </a>
+
+    <a th:href="@{/vista/detalles}" class="card c-detalles">
+        <h3>Detalle de Ventas</h3>
+        <p>Desglose de productos por factura</p>
+    </a>
+</div>
+
+</body>
+</html>
