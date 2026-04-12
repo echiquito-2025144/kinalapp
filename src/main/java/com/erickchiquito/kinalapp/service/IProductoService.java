@@ -15,7 +15,6 @@ public interface IProductoService {
 
     //Buscar por codigo
     Optional<Productos> buscarPorCodigo(int codigo);
-
     //Listar productos activos
     List<Productos> listarActivos();
 
