@@ -7,12 +7,22 @@
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 40px; }
         .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         h1 { color: #333; border-bottom: 3px solid #007bff; padding-bottom: 10px; }
-        .btn-nuevo { background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+
+        /* Contenedor para botones de navegación superior */
+        .nav-buttons { margin-bottom: 20px; display: flex; gap: 10px; }
+
+        .btn-nuevo { background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-nuevo:hover { background-color: #0056b3; }
+
+        /* Estilo del botón de Dashboard */
+        .btn-dashboard { background-color: #343a40; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-dashboard:hover { background-color: #23272b; }
+
         table { width: 100%; border-collapse: collapse; }
         th { background-color: #007bff; color: white; padding: 15px; text-align: left; }
         td { padding: 12px; border-bottom: 1px solid #eee; }
         tr:hover { background-color: #f9f9f9; }
-        .btn-action { padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 14px; background: #fff; }
+        .btn-action { padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 14px; background: #fff; font-weight: bold; }
         .btn-edit { color: #f0ad4e; margin-right: 5px; }
         .btn-delete { color: #d9534f; }
     </style>
@@ -22,7 +32,11 @@
 <div class="container">
     <h1>Control de Ventas</h1>
 
-    <a th:href="@{/vista/ventas/nuevo}" class="btn-nuevo">+ Registrar Nueva Venta</a>
+    <div class="nav-buttons">
+        <a th:href="@{/}" class="btn-dashboard">Volver al Dashboard</a>
+
+        <a th:href="@{/vista/ventas/nuevo}" class="btn-nuevo">+ Registrar Nueva Venta</a>
+    </div>
 
     <table>
         <thead>
@@ -38,12 +52,14 @@
         </thead>
         <tbody>
         <tr th:each="v : ${ventas}">
-            <td th:text="${v.codigoVenta}"></td>
+            <td th:text="${v.codigoVenta}" style="font-weight: bold;"></td>
             <td th:text="${v.fechaVenta}"></td>
             <td th:text="${v.cliente != null} ? ${v.cliente.nombreCliente + ' ' + v.cliente.apellidoCliente} : 'Sin Cliente'"></td>
             <td th:text="${v.usuario != null} ? ${v.usuario.username} : 'N/A'"></td>
             <td th:text="'Q ' + ${v.total}"></td>
-            <td th:text="${v.estado == 1 ? 'Activa' : 'Finalizada'}"></td>
+            <td>
+                <span th:text="${v.estado == 1 ? '🔵 Activa' : '⚪ Finalizada'}"></span>
+            </td>
             <td>
                 <button type="button" class="btn-action btn-edit"
                         onclick="alert('Restricción: No se permite la edición de registros para proteger la integridad de las llaves primarias y foráneas.')">
