@@ -36,10 +36,14 @@ public class ProductoVistaController {
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable("id") int id, Model model) {
-        // Buscamos el producto por su ID (código)
-        Productos producto = productoService.buscarPorId(id);
+        Productos producto = productoService.buscarPorCodigo(id).orElse(null);
+
+        if (producto == null) {
+            return "redirect:/vista/productos";
+        }
+
         model.addAttribute("producto", producto);
-        return "producto-form"; // Reutilizamos el mismo formulario
+        return "productos-form";
     }
 
     @GetMapping("/eliminar/{id}")
