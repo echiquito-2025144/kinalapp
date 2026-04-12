@@ -30,15 +30,17 @@
         <td th:text="${p.precio}"></td>
         <td th:text="${p.stock}"></td>
         <td th:text="${p.estado}"></td>
-
         <td>
-            <button type="button" onclick="mostrarMensajeEditar()">
+            <a th:href="@{/vista/productos/editar/{id}(id=${p.codigoProducto})}"
+               style="text-decoration: none; background: #eee; padding: 2px 5px; border: 1px solid #ccc; color: black;">
                 Editar
-            </button>
+            </a>
 
-            <button type="button" onclick="mostrarMensajeEliminar()">
+            <a th:href="@{/vista/productos/eliminar/{id}(id=${p.codigoProducto})}"
+               onclick="return confirm('¿Estás seguro de eliminar este producto?')"
+               style="text-decoration: none; background: #ffcccc; padding: 2px 5px; border: 1px solid #cc0000; color: black;">
                 Eliminar
-            </button>
+            </a>
         </td>
     </tr>
     </tbody>
