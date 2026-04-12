@@ -7,7 +7,17 @@
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 40px; }
         .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         h1 { color: #e67e22; border-bottom: 3px solid #e67e22; padding-bottom: 10px; }
-        .btn-nuevo { background-color: #e67e22; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+
+        /* Contenedor para alinear los botones superiores */
+        .nav-buttons { margin-bottom: 20px; display: flex; gap: 10px; }
+
+        .btn-nuevo { background-color: #e67e22; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-nuevo:hover { background-color: #d35400; }
+
+        /* Botón de Dashboard personalizado para este módulo */
+        .btn-dashboard { background-color: #343a40; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-dashboard:hover { background-color: #23272b; }
+
         table { width: 100%; border-collapse: collapse; }
         th { background-color: #e67e22; color: white; padding: 15px; text-align: left; }
         td { padding: 12px; border-bottom: 1px solid #eee; }
@@ -21,7 +31,12 @@
 
 <div class="container">
     <h1>Detalles de Artículos Vendidos</h1>
-    <a th:href="@{/vista/detalles/nuevo}" class="btn-nuevo">+ Agregar Producto a Venta</a>
+
+    <div class="nav-buttons">
+        <a th:href="@{/}" class="btn-dashboard">Volver al Dashboard</a>
+
+        <a th:href="@{/vista/detalles/nuevo}" class="btn-nuevo">+ Agregar Producto a Venta</a>
+    </div>
 
     <table>
         <thead>
@@ -37,7 +52,7 @@
         </thead>
         <tbody>
         <tr th:each="d : ${detalles}">
-            <td th:text="${d.codigoDetalleVenta}"></td>
+            <td th:text="${d.codigoDetalleVenta}" style="font-weight: bold;"></td>
             <td th:text="${d.venta != null ? d.venta.codigoVenta : 'N/A'}"></td>
             <td th:text="${d.productos != null ? d.productos.nombreProducto : 'Desconocido'}"></td>
             <td th:text="${d.cantidad}"></td>
