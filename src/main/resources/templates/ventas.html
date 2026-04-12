@@ -41,7 +41,7 @@
             <td th:text="${v.codigoVenta}"></td>
             <td th:text="${v.fechaVenta}"></td>
             <td th:text="${v.cliente != null} ? ${v.cliente.nombreCliente + ' ' + v.cliente.apellidoCliente} : 'Sin Cliente'"></td>
-            <td th:text="${v.usuario != null} ? ${v.usuario.nombreUsuario} : 'N/A'"></td>
+            <td th:text="${v.usuario != null} ? ${v.usuario.username} : 'N/A'"></td>
             <td th:text="'Q ' + ${v.total}"></td>
             <td th:text="${v.estado == 1 ? 'Activa' : 'Finalizada'}"></td>
             <td>
