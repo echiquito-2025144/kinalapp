@@ -3,35 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Producto</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: inline-block; width: 150px; font-weight: bold; }
+        input { padding: 5px; width: 250px; }
+        .btn-guardar { background-color: #28a745; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .btn-cancelar { background-color: #6c757d; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-left: 10px; }
+        input[readonly] { background-color: #e9ecef; cursor: not-allowed; }
+    </style>
 </head>
 <body>
 
-<h1>Datos del Producto</h1>
+<h1 th:text="${producto.codigoProducto == 0} ? 'Crear Nuevo Producto' : 'Editar Producto'">Datos del Producto</h1>
 
 <form th:action="@{/vista/productos/guardar}" th:object="${producto}" method="post">
 
-    <label>Código Producto:</label>
-    <input type="number" th:field="*{codigoProducto}" required />
-    <br><br>
+    <div class="form-group">
+        <label>Código Producto:</label>
+        <input type="number" th:field="*{codigoProducto}"
+               th:readonly="${producto.codigoProducto != 0}"
+               placeholder="Ingrese código numérico" required />
+    </div>
 
-    <label>Nombre:</label>
-    <input type="text" th:field="*{nombreProducto}" required />
-    <br><br>
+    <div class="form-group">
+        <label>Nombre del Producto:</label>
+        <input type="text" th:field="*{nombreProducto}" placeholder="Ej: Monitor LED" required />
+    </div>
 
-    <label>Precio:</label>
-    <input type="number" step="0.01" th:field="*{precio}" required />
-    <br><br>
+    <div class="form-group">
+        <label>Precio (Q):</label>
+        <input type="number" step="0.01" th:field="*{precio}" placeholder="0.00" required />
+    </div>
 
-    <label>Stock:</label>
-    <input type="number" th:field="*{stock}" required />
-    <br><br>
+    <div class="form-group">
+        <label>Stock actual:</label>
+        <input type="number" th:field="*{stock}" placeholder="Cantidad en bodega" required />
+    </div>
 
-    <label>Estado:</label>
-    <input type="number" th:field="*{estado}" />
-    <br><br>
+    <div class="form-group">
+        <label>Estado (1/0):</label>
+        <input type="number" th:field="*{estado}" placeholder="1 para activo" required />
+    </div>
 
-    <button type="submit">Guardar Producto</button>
-    <a th:href="@{/vista/productos}">Cancelar</a>
+    <br>
+
+    <button type="submit" class="btn-guardar">
+        Guardar Producto
+    </button>
+
+    <a th:href="@{/vista/productos}" class="btn-cancelar">Cancelar</a>
 
 </form>
 
