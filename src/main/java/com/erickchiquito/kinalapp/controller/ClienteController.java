@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/vista/clientes")
 public class ClienteController {
 
