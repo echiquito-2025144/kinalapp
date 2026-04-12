@@ -2,59 +2,86 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Productos</title>
+    <title>KinalApp - Inventario de Productos</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 40px; }
+        .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #444; border-bottom: 3px solid #6c757d; padding-bottom: 10px; }
+
+        /* Contenedor de botones superiores */
+        .nav-buttons { margin-bottom: 20px; display: flex; gap: 10px; }
+
+        /* Botones de navegación */
+        .btn-dashboard { background-color: #343a40; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-dashboard:hover { background-color: #23272b; }
+
+        .btn-nuevo { background-color: #6c757d; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-nuevo:hover { background-color: #5a6268; }
+
+        /* Estilo de la Tabla */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background-color: white; }
+        th { background-color: #6c757d; color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #ddd; color: #333; }
+        tr:hover { background-color: #f8f9fa; }
+
+        /* Botones de acción dentro de la tabla */
+        .action-link { text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: bold; display: inline-block; margin-right: 5px; }
+        .btn-edit { background-color: #eee; border: 1px solid #ccc; color: #333; }
+        .btn-edit:hover { background-color: #ddd; }
+        .btn-delete { background-color: #ffcccc; border: 1px solid #cc0000; color: #a94442; }
+        .btn-delete:hover { background-color: #f2dede; }
+
+        /* Badge para el estado */
+        .status-badge { background: #d4edda; color: #155724; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; }
+    </style>
 </head>
 <body>
 
-<h1>Productos</h1>
+<div class="container">
+    <h1>Inventario de Productos</h1>
 
+    <div class="nav-buttons">
+        <a th:href="@{/}" class="btn-dashboard">🏠 Volver al Dashboard</a>
 
-<a href="/vista/productos/nuevo">Nuevo Producto</a>
+        <a th:href="@{/vista/productos/nuevo}" class="btn-nuevo">+ Registrar Nuevo Producto</a>
+    </div>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Código</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Stock</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
+    <table>
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre del Producto</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
 
-    <tbody>
-    <tr th:each="p : ${productos}">
-        <td th:text="${p.codigoProducto}"></td>
-        <td th:text="${p.nombreProducto}"></td>
-        <td th:text="${p.precio}"></td>
-        <td th:text="${p.stock}"></td>
-        <td th:text="${p.estado}"></td>
-        <td>
-            <a th:href="@{/vista/productos/editar/{id}(id=${p.codigoProducto})}"
-               style="text-decoration: none; background: #eee; padding: 2px 5px; border: 1px solid #ccc; color: black;">
-                Editar
-            </a>
+        <tbody>
+        <tr th:each="p : ${productos}">
+            <td th:text="${p.codigoProducto}" style="font-weight: bold; color: #6c757d;"></td>
+            <td th:text="${p.nombreProducto}"></td>
+            <td th:text="'Q' + ${p.precio}"></td>
+            <td th:text="${p.stock}"></td>
+            <td>
+                <span class="status-badge" th:text="${p.estado == 1 ? 'Activo' : 'Inactivo'}"></span>
+            </td>
+            <td>
+                <a th:href="@{/vista/productos/editar/{id}(id=${p.codigoProducto})}" class="action-link btn-edit">
+                    Editar
+                </a>
 
-            <a th:href="@{/vista/productos/eliminar/{id}(id=${p.codigoProducto})}"
-               onclick="return confirm('¿Estás seguro de eliminar este producto?')"
-               style="text-decoration: none; background: #ffcccc; padding: 2px 5px; border: 1px solid #cc0000; color: black;">
-                Eliminar
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<script>
-    function mostrarMensajeEditar() {
-        alert("No se puede editar la llave primaria (codigoProducto)");
-    }
-
-    function mostrarMensajeEliminar() {
-        alert("No se puede eliminar este producto");
-    }
-</script>
+                <a th:href="@{/vista/productos/eliminar/{id}(id=${p.codigoProducto})}"
+                   onclick="return confirm('¿Estás seguro de eliminar este producto del inventario?')"
+                   class="action-link btn-delete">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
