@@ -1,53 +1,59 @@
-<form th:object="${usuario}" method="post" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Usuario</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
+        .card { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { color: #28a745; text-align: center; margin-bottom: 25px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .btn-save { background-color: #28a745; color: white; border: none; padding: 14px; width: 100%; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
+        .btn-cancel { display: block; text-align: center; margin-top: 15px; color: #dc3545; text-decoration: none; font-weight: 500; }
+    </style>
+</head>
+<body>
 
-    
-    <label>Código Usuario:</label>
-    <input type="text" th:field="*{codigoUsuario}" readonly />
+<div class="card">
+    <h2>Nuevo Usuario</h2>
+    <form th:action="@{/vista/usuarios/guardar}" th:object="${usuario}" method="post">
 
-    <br>
+        <div class="form-group">
+            <label>Código Usuario (PK):</label>
+            <input type="number" th:field="*{codigoUsuario}" required placeholder="ID numérico" />
+        </div>
 
-    <label>Username:</label>
-    <input type="text" th:field="*{username}" />
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" th:field="*{username}" required placeholder="Nombre de acceso" />
+        </div>
 
-    <br>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" th:field="*{password}" required />
+        </div>
 
-    <label>Password:</label>
-    <input type="text" th:field="*{password}" />
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" th:field="*{email}" required placeholder="correo@ejemplo.com" />
+        </div>
 
-    <br>
+        <div class="form-group">
+            <label>Rol:</label>
+            <input type="text" th:field="*{rol}" placeholder="Admin / Vendedor" />
+        </div>
 
-    <label>Email:</label>
-    <input type="email" th:field="*{email}" />
+        <div class="form-group">
+            <label>Estado (1 Activo):</label>
+            <input type="number" th:field="*{estado}" required />
+        </div>
 
-    <br>
+        <button type="submit" class="btn-save">Guardar Usuario</button>
+        <a th:href="@{/vista/usuarios}" class="btn-cancel">Cancelar</a>
+    </form>
+</div>
 
-    <label>Rol:</label>
-    <input type="text" th:field="*{rol}" />
-
-    <br>
-
-    <label>Estado:</label>
-    <input type="number" th:field="*{estado}" />
-
-    <br><br>
-
-    <!-- BOTONES BLOQUEADOS -->
-    <button type="button" onclick="mostrarMensajeEditar()">
-        Editar
-    </button>
-
-    <button type="button" onclick="mostrarMensajeEliminar()">
-        Eliminar
-    </button>
-
-</form>
-
-<script>
-    function mostrarMensajeEditar() {
-        alert("No se puede editar la llave primaria (codigoUsuario)");
-    }
-
-    function mostrarMensajeEliminar() {
-        alert("No se puede eliminar este usuario");
-    }
-</script>
+</body>
+</html>
