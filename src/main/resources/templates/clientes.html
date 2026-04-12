@@ -8,10 +8,26 @@
 
 <h1>Clientes</h1>
 
-<!-- Botón para crear nuevo cliente -->
-<a href="/vista/clientes/nuevo">Nuevo Cliente</a>
 
-<!-- Tabla de clientes -->
+<a href="/vista/clientes/nuevo">Nuevo Cliente</a>
+<style>
+    .btn-dashboard {
+        background-color: #343a40; /* Gris oscuro/negro profesional */
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        font-weight: bold;
+    }
+    .btn-dashboard:hover {
+        background-color: #23272b;
+    }
+</style>
+
+
 <table border="1">
     <thead>
     <tr>
@@ -24,7 +40,7 @@
     </tr>
     </thead>
     <tbody>
-    <!-- Recorremos la lista de clientes -->
+
     <tr th:each="c : ${clientes}">
         <td th:text="${c.DPICliente}"></td>
         <td th:text="${c.nombreCliente}"></td>
@@ -32,7 +48,7 @@
         <td th:text="${c.direccion}"></td>
         <td th:text="${c.estado}"></td>
         <td>
-            <!-- Bloqueamos editar y eliminar mostrando un mensaje -->
+     
             <button type="button" onclick="alert('No se puede modificar la llave primaria')">Editar</button>
             <button type="button" onclick="alert('No se puede eliminar la llave primaria')">Eliminar</button>
         </td>
