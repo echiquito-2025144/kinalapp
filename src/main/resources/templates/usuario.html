@@ -2,16 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Usuarios</title>
+    <title>KinalApp - Gestión de Usuarios</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 40px; }
         .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #333; border-bottom: 3px solid #28a745; padding-bottom: 10px; }
-        .btn-nuevo { background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; }
+        h1 { color: #28a745; border-bottom: 3px solid #28a745; padding-bottom: 10px; }
+
+        .nav-buttons { margin-bottom: 20px; display: flex; gap: 10px; }
+
+        .btn-dashboard { background-color: #343a40; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-dashboard:hover { background-color: #23272b; }
+
+        .btn-nuevo { background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-nuevo:hover { background-color: #218838; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th { background-color: #28a745; color: white; padding: 15px; text-align: left; }
         td { padding: 12px; border-bottom: 1px solid #eee; }
-        tr:hover { background-color: #f9f9f9; }
+        tr:hover { background-color: #f1f9f3; }
+
         .btn-action { padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; background: #fff; font-weight: bold; }
         .btn-edit { color: #f0ad4e; }
         .btn-delete { color: #d9534f; }
@@ -21,7 +30,11 @@
 
 <div class="container">
     <h1>Lista de Usuarios / Vendedores</h1>
-    <a th:href="@{/vista/usuarios/nuevo}" class="btn-nuevo">+ Crear Nuevo Usuario</a>
+
+    <div class="nav-buttons">
+        <a th:href="@{/}" class="btn-dashboard">🏠 Volver al Dashboard</a>
+        <a th:href="@{/vista/usuarios/nuevo}" class="btn-nuevo">+ Crear Nuevo Usuario</a>
+    </div>
 
     <table>
         <thead>
@@ -36,11 +49,13 @@
         </thead>
         <tbody>
         <tr th:each="u : ${usuarios}">
-            <td th:text="${u.codigoUsuario}"></td>
+            <td th:text="${u.codigoUsuario}" style="font-weight: bold;"></td>
             <td th:text="${u.username}"></td>
             <td th:text="${u.email}"></td>
             <td th:text="${u.rol}"></td>
-            <td th:text="${u.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+            <td>
+                <span th:text="${u.estado == 1 ? '✅ Activo' : '❌ Inactivo'}"></span>
+            </td>
             <td>
                 <button type="button" class="btn-action btn-edit" onclick="alert('No se puede editar la llave primaria')">Editar</button>
                 <button type="button" class="btn-action btn-delete" onclick="alert('No se puede eliminar este usuario')">Eliminar</button>
