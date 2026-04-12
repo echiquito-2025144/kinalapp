@@ -2,59 +2,66 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Clientes</title>
+    <title>KinalApp - Listado de Clientes</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 40px; }
+        .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #007bff; border-bottom: 3px solid #007bff; padding-bottom: 10px; }
+
+        /* Contenedor de botones de navegación */
+        .nav-buttons { margin-bottom: 20px; display: flex; gap: 10px; }
+
+        .btn-nuevo { background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+
+        /* BOTÓN PARA REGRESAR AL DASHBOARD */
+        .btn-dashboard { background-color: #343a40; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn-dashboard:hover { background-color: #23272b; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background-color: #007bff; color: white; padding: 12px; text-align: left; }
+        td { padding: 10px; border-bottom: 1px solid #ddd; }
+        tr:hover { background-color: #f1f7ff; }
+
+        .btn-action { padding: 5px 10px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer; background: white; }
+    </style>
 </head>
 <body>
 
-<h1>Clientes</h1>
+<div class="container">
+    <h1>Listado de Clientes</h1>
 
+    <div class="nav-buttons">
+        <a th:href="@{/}" class="btn-dashboard">🏠 Volver al Dashboard</a>
 
-<a href="/vista/clientes/nuevo">Nuevo Cliente</a>
-<style>
-    .btn-dashboard {
-        background-color: #343a40; /* Gris oscuro/negro profesional */
-        color: white;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 5px;
-        display: inline-block;
-        margin-bottom: 20px;
-        margin-left: 10px;
-        font-weight: bold;
-    }
-    .btn-dashboard:hover {
-        background-color: #23272b;
-    }
-</style>
+        <a th:href="@{/vista/clientes/nuevo}" class="btn-nuevo">+ Nuevo Cliente</a>
+    </div>
 
-
-<table border="1">
-    <thead>
-    <tr>
-        <th>DPI</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Dirección</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    <tr th:each="c : ${clientes}">
-        <td th:text="${c.DPICliente}"></td>
-        <td th:text="${c.nombreCliente}"></td>
-        <td th:text="${c.apellidoCliente}"></td>
-        <td th:text="${c.direccion}"></td>
-        <td th:text="${c.estado}"></td>
-        <td>
-     
-            <button type="button" onclick="alert('No se puede modificar la llave primaria')">Editar</button>
-            <button type="button" onclick="alert('No se puede eliminar la llave primaria')">Eliminar</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <table>
+        <thead>
+        <tr>
+            <th>DPI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Dirección</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${clientes}">
+            <td th:text="${c.DPICliente}"></td>
+            <td th:text="${c.nombreCliente}"></td>
+            <td th:text="${c.apellidoCliente}"></td>
+            <td th:text="${c.direccion}"></td>
+            <td th:text="${c.estado}"></td>
+            <td>
+                <button class="btn-action" onclick="alert('Funcionalidad de edición')">Editar</button>
+                <button class="btn-action" onclick="alert('Funcionalidad de eliminación')">Eliminar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
