@@ -2,64 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Usuarios</title>
+    <title>Gestión de Usuarios</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 40px; }
+        .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #333; border-bottom: 3px solid #28a745; padding-bottom: 10px; }
+        .btn-nuevo { background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background-color: #28a745; color: white; padding: 15px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        tr:hover { background-color: #f9f9f9; }
+        .btn-action { padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; background: #fff; font-weight: bold; }
+        .btn-edit { color: #f0ad4e; }
+        .btn-delete { color: #d9534f; }
+    </style>
 </head>
 <body>
 
-<h1>Usuarios</h1>
+<div class="container">
+    <h1>Lista de Usuarios / Vendedores</h1>
+    <a th:href="@{/vista/usuarios/nuevo}" class="btn-nuevo">+ Crear Nuevo Usuario</a>
 
-<!-- Botón para crear nuevo usuario -->
-<a href="/vista/usuarios/nuevo">Nuevo Usuario</a>
-
-<!-- Tabla de usuarios -->
-<table border="1">
-    <thead>
-    <tr>
-        <th>Código</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Email</th>
-        <th>Rol</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    <tr th:each="u : ${usuarios}">
-        <td th:text="${u.codigoUsuario}"></td>
-        <td th:text="${u.username}"></td>
-        <td th:text="${u.password}"></td>
-        <td th:text="${u.email}"></td>
-        <td th:text="${u.rol}"></td>
-        <td th:text="${u.estado}"></td>
-
-        <td>
-            <!-- Botones bloqueados -->
-            <button type="button"
-                    onclick="mostrarMensajeEditar()">
-                Editar
-            </button>
-
-            <button type="button"
-                    onclick="mostrarMensajeEliminar()">
-                Eliminar
-            </button>
-        </td>
-    </tr>
-
-    </tbody>
-</table>
-
-<script>
-    function mostrarMensajeEditar() {
-        alert("No se puede editar la llave primaria (codigoUsuario)");
-    }
-
-    function mostrarMensajeEliminar() {
-        alert("No se puede eliminar este usuario");
-    }
-</script>
+    <table>
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${usuarios}">
+            <td th:text="${u.codigoUsuario}"></td>
+            <td th:text="${u.username}"></td>
+            <td th:text="${u.email}"></td>
+            <td th:text="${u.rol}"></td>
+            <td th:text="${u.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+            <td>
+                <button type="button" class="btn-action btn-edit" onclick="alert('No se puede editar la llave primaria')">Editar</button>
+                <button type="button" class="btn-action btn-delete" onclick="alert('No se puede eliminar este usuario')">Eliminar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
