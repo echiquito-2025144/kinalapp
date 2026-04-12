@@ -32,7 +32,7 @@
     <h1>Lista de Usuarios / Vendedores</h1>
 
     <div class="nav-buttons">
-        <a th:href="@{/}" class="btn-dashboard">🏠 Volver al Dashboard</a>
+        <a th:href="@{/}" class="btn-dashboard">Volver al Dashboard</a>
         <a th:href="@{/vista/usuarios/nuevo}" class="btn-nuevo">+ Crear Nuevo Usuario</a>
     </div>
 
@@ -54,7 +54,7 @@
             <td th:text="${u.email}"></td>
             <td th:text="${u.rol}"></td>
             <td>
-                <span th:text="${u.estado == 1 ? '✅ Activo' : '❌ Inactivo'}"></span>
+                <span th:text="${u.estado == 1 ? ' Activo' : ' Inactivo'}"></span>
             </td>
             <td>
                 <button type="button" class="btn-action btn-edit" onclick="alert('No se puede editar la llave primaria')">Editar</button>
