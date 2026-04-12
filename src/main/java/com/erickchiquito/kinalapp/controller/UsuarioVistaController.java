@@ -4,8 +4,7 @@ import com.erickchiquito.kinalapp.entity.Usuario;
 import com.erickchiquito.kinalapp.service.IUsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/vista/usuarios")
@@ -27,5 +26,11 @@ public class UsuarioVistaController {
     public String nuevoUsuario(Model model) {
         model.addAttribute("usuario", new Usuario());
         return "usuario-form";
+    }
+    
+    @PostMapping("/guardar")
+    public String guardar(@ModelAttribute("usuario") Usuario usuario) {
+        usuarioService.guardar(usuario);
+        return "redirect:/vista/usuarios";
     }
 }
