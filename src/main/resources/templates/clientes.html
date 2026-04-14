@@ -2,49 +2,100 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>KinalApp - Listado de Clientes</title>
+    <title>KinalApp - Control de Clientes</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 40px; }
-        .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #007bff; border-bottom: 3px solid #007bff; padding-bottom: 10px; }
 
-        /* Contenedor de botones de navegación */
-        .nav-buttons { margin-bottom: 20px; display: flex; gap: 10px; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #dfe6e9;
+            margin: 0;
+            padding: 30px;
+        }
+        .main-container {
+            background: #ffffff;
+            padding: 20px;
+            border: 1px solid #b2bec3;
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
 
-        .btn-nuevo { background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .bar-tools {
+            background: #f1f2f6;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
 
-        /* BOTÓN PARA REGRESAR AL DASHBOARD */
-        .btn-dashboard { background-color: #343a40; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
-        .btn-dashboard:hover { background-color: #23272b; }
+        /* Botones Rectos */
+        .btn {
+            padding: 8px 15px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            border: 1px solid #2c3e50;
+            cursor: pointer;
+        }
+        .btn-home { background: #2c3e50; color: white; }
+        .btn-add { background: #0984e3; color: white; }
+        .btn:hover { opacity: 0.8; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th { background-color: #007bff; color: white; padding: 12px; text-align: left; }
-        td { padding: 10px; border-bottom: 1px solid #ddd; }
-        tr:hover { background-color: #f1f7ff; }
+        /* Tabla de Datos */
+        table { width: 100%; border-collapse: collapse; margin-top: 5px; background: #fff; }
+        th {
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            border: 1px solid #1e272e;
+        }
+        td {
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            font-size: 13px;
+            text-align: center;
+        }
+        tr:nth-child(even) { background: #f9f9f9; }
 
-        .btn-action { padding: 5px 10px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer; background: white; }
+        .op-btn {
+            background: #ecf0f1;
+            border: 1px solid #7f8c8d;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .op-del { color: #d63031; border-color: #d63031; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Listado de Clientes</h1>
+<div class="main-container">
+    <h1>MÓDULO: CONTROL DE CLIENTES</h1>
 
-    <div class="nav-buttons">
-        <a th:href="@{/}" class="btn-dashboard">Volver al Dashboard</a>
-
-        <a th:href="@{/vista/clientes/nuevo}" class="btn-nuevo">+ Nuevo Cliente</a>
+    <div class="bar-tools">
+        <a th:href="@{/}" class="btn btn-home">Menú principal</a>
+        <a th:href="@{/vista/clientes/nuevo}" class="btn btn-add">+ Nuevo Registro</a>
     </div>
 
     <table>
         <thead>
         <tr>
-            <th>DPI</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Dirección</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+            <th>No. DPI</th>
+            <th>NOMBRES</th>
+            <th>APELLIDOS</th>
+            <th>DIRECCIÓN</th>
+            <th>ESTADO</th>
+            <th>GESTIÓN</th>
         </tr>
         </thead>
         <tbody>
@@ -53,10 +104,10 @@
             <td th:text="${c.nombreCliente}"></td>
             <td th:text="${c.apellidoCliente}"></td>
             <td th:text="${c.direccion}"></td>
-            <td th:text="${c.estado}"></td>
+            <td th:text="${c.estado == 1 ? 'ACTIVO' : 'INACTIVO'}"></td>
             <td>
-                <button class="btn-action" onclick="alert('Funcionalidad de edición')">Editar</button>
-                <button class="btn-action" onclick="alert('Funcionalidad de eliminación')">Eliminar</button>
+                <button class="op-btn" onclick="alert('Sistema: La edición de registros DPI está protegida.')">EDITAR</button>
+                <button class="op-btn op-del" onclick="alert('Error: El cliente posee registros vinculados en Ventas.')">ELIMINAR</button>
             </td>
         </tr>
         </tbody>
