@@ -2,59 +2,119 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Formulario de Producto</title>
+    <title>KinalApp - Ficha de Producto</title>
     <style>
-        body { font-family: sans-serif; margin: 40px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: inline-block; width: 150px; font-weight: bold; }
-        input { padding: 5px; width: 250px; }
-        .btn-guardar { background-color: #28a745; color: white; padding: 10px 20px; border: none; cursor: pointer; }
-        .btn-cancelar { background-color: #6c757d; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-left: 10px; }
-        input[readonly] { background-color: #e9ecef; cursor: not-allowed; }
+        body {
+            font-family: Verdana, sans-serif;
+            background-color: #f1f2f6;
+            padding: 40px;
+        }
+        .form-container {
+            background: #fff;
+            width: 500px;
+            margin: auto;
+            border-top: 5px solid #2c3e50;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-header {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+        }
+        .form-content { padding: 25px; }
+
+        .group { margin-bottom: 18px; }
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        input {
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #bdc3c7;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+        input:focus { border-color: #2c3e50; outline: none; background: #fffdf9; }
+
+        input[readonly] { background-color: #f1f2f6; color: #7f8c8d; }
+
+        .footer-btns { margin-top: 25px; display: flex; gap: 10px; }
+
+        .save-btn {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px;
+            flex: 2;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .cancel-btn {
+            background: #e74c3c;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            flex: 1;
+            font-size: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .save-btn:hover { background: #34495e; }
     </style>
 </head>
 <body>
 
-<h1 th:text="${producto.codigoProducto == 0} ? 'Crear Nuevo Producto' : 'Editar Producto'">Datos del Producto</h1>
-
-<form th:action="@{/vista/productos/guardar}" th:object="${producto}" method="post">
-
-    <div class="form-group">
-        <label>Código Producto:</label>
-        <input type="number" th:field="*{codigoProducto}"
-               th:readonly="${producto.codigoProducto != 0}"
-               placeholder="Ingrese código numérico" required />
+<div class="form-container">
+    <div class="form-header" th:text="${producto.codigoProducto == 0} ? 'REGISTRO DE NUEVO ARTÍCULO' : 'ACTUALIZACIÓN DE PRODUCTO'">
+        FICHA TÉCNICA
     </div>
 
-    <div class="form-group">
-        <label>Nombre del Producto:</label>
-        <input type="text" th:field="*{nombreProducto}" placeholder="Ej: Monitor LED" required />
+    <div class="form-content">
+        <form th:action="@{/vista/productos/guardar}" th:object="${producto}" method="post">
+
+            <div class="group">
+                <label>IDENTIFICADOR (SKU):</label>
+                <input type="number" th:field="*{codigoProducto}"
+                       th:readonly="${producto.codigoProducto != 0}"
+                       placeholder="Autogenerado o Manual" required />
+            </div>
+
+            <div class="group">
+                <label>DESCRIPCIÓN DEL ARTÍCULO:</label>
+                <input type="text" th:field="*{nombreProducto}" placeholder="Nombre comercial" required />
+            </div>
+
+            <div class="group">
+                <label>PRECIO DE VENTA (Q):</label>
+                <input type="number" step="0.01" th:field="*{precio}" placeholder="0.00" required />
+            </div>
+
+            <div class="group">
+                <label>STOCK EN BODEGA:</label>
+                <input type="number" th:field="*{stock}" placeholder="Unidades físicas" required />
+            </div>
+
+            <div class="group">
+                <label>ESTADO OPERATIVO (1=ACTIVO):</label>
+                <input type="number" th:field="*{estado}" placeholder="Control binario" required />
+            </div>
+
+            <div class="footer-btns">
+                <button type="submit" class="save-btn">REGISTRAR EN INVENTARIO</button>
+                <a th:href="@{/vista/productos}" class="cancel-btn">CANCELAR</a>
+            </div>
+
+        </form>
     </div>
-
-    <div class="form-group">
-        <label>Precio (Q):</label>
-        <input type="number" step="0.01" th:field="*{precio}" placeholder="0.00" required />
-    </div>
-
-    <div class="form-group">
-        <label>Stock actual:</label>
-        <input type="number" th:field="*{stock}" placeholder="Cantidad en bodega" required />
-    </div>
-
-    <div class="form-group">
-        <label>Estado (1/0):</label>
-        <input type="number" th:field="*{estado}" placeholder="1 para activo" required />
-    </div>
-
-    <br>
-
-    <button type="submit" class="btn-guardar">
-        Guardar Producto
-    </button>
-
-    <a th:href="@{/vista/productos}" class="btn-cancelar">Cancelar</a>
-
-</form>
+</div>
 
 </body>
 </html>
