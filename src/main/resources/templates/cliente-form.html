@@ -2,58 +2,109 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>KinalApp - Registro de Cliente</title>
+    <title>KinalApp - Registro</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
-        .card { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { color: #007bff; text-align: center; margin-bottom: 25px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        .btn-save { background-color: #007bff; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; }
-        .btn-save:hover { background-color: #0056b3; }
-        .links-container { text-align: center; margin-top: 20px; }
-        .btn-link { color: #666; text-decoration: none; font-size: 14px; display: block; margin: 8px 0; }
-        .btn-link:hover { color: #007bff; text-decoration: underline; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dfe6e9;
+            padding: 50px;
+        }
+        .form-window {
+            background: white;
+            width: 450px;
+            margin: auto;
+            border: 1px solid #2c3e50;
+        }
+        .form-header {
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .form-body { padding: 20px; }
+
+        .field { margin-bottom: 15px; }
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            box-sizing: border-box;
+            background: #fdfdfd;
+        }
+
+        .btn-submit {
+            background: #27ae60;
+            color: white;
+            border: 1px solid #219150;
+            padding: 10px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .btn-submit:hover { background: #2ecc71; }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        .btn-cancel {
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Nuevo Cliente</h2>
+<div class="form-window">
+    <div class="form-header">DATOS DEL CLIENTE</div>
 
-    <form th:action="@{/vista/clientes/guardar}" th:object="${cliente}" method="post">
+    <div class="form-body">
+        <form th:action="@{/vista/clientes/guardar}" th:object="${cliente}" method="post">
 
-        <div class="form-group">
-            <label>DPI:</label>
-            <input type="text" th:field="*{DPICliente}" required placeholder="Ingrese DPI" />
+            <div class="field">
+                <label>DOCUMENTO DPI:</label>
+                <input type="text" th:field="*{DPICliente}" required />
+            </div>
+
+            <div class="field">
+                <label>NOMBRES:</label>
+                <input type="text" th:field="*{nombreCliente}" required />
+            </div>
+
+            <div class="field">
+                <label>APELLIDOS:</label>
+                <input type="text" th:field="*{apellidoCliente}" required />
+            </div>
+
+            <div class="field">
+                <label>DIRECCIÓN COMPLETA:</label>
+                <input type="text" th:field="*{direccion}" />
+            </div>
+
+            <div class="field">
+                <label>ESTADO (1=ACTIVO, 0=INACTIVO):</label>
+                <input type="number" th:field="*{estado}" value="1" />
+            </div>
+
+            <button type="submit" class="btn-submit">GUARDAR EN BASE DE DATOS</button>
+        </form>
+
+        <div class="footer-links">
+            <a th:href="@{/vista/clientes}" class="btn-cancel">[ CANCELAR Y REGRESAR ]</a>
         </div>
-
-        <div class="form-group">
-            <label>Nombre:</label>
-            <input type="text" th:field="*{nombreCliente}" required placeholder="Nombres" />
-        </div>
-
-        <div class="form-group">
-            <label>Apellido:</label>
-            <input type="text" th:field="*{apellidoCliente}" required placeholder="Apellidos" />
-        </div>
-
-        <div class="form-group">
-            <label>Dirección:</label>
-            <input type="text" th:field="*{direccion}" placeholder="Ciudad, Guatemala" />
-        </div>
-
-        <div class="form-group">
-            <label>Estado (1=Activo):</label>
-            <input type="number" th:field="*{estado}" value="1" />
-        </div>
-
-        <button type="submit" class="btn-save">Guardar Cliente</button>
-    </form>
-
-    <div class="links-container">
-        <a th:href="@{/vista/clientes}" class="btn-link">← Volver al Listado</a>
     </div>
 </div>
 
