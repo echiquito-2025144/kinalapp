@@ -2,144 +2,119 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>KinalApp - Control de Inventario</title>
+    <title>KinalApp - Reporte de Inventario</title>
     <style>
-
         body {
-            font-family: 'Verdana', sans-serif;
-            background-color: #e9ecef;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f1f2f6;
             margin: 0;
             padding: 30px;
-            color: #2c3e50;
         }
-
-        .main-wrapper {
+        .report-frame {
             background: #ffffff;
-            padding: 20px;
-            border: 2px solid #34495e; /* Borde sólido para que no parezca plantilla */
-            max-width: 1100px;
+            padding: 25px;
+            border: 1px solid #7f8c8d;
+            max-width: 1150px;
             margin: auto;
         }
-
         h1 {
+            color: #2c3e50;
+            font-size: 20px;
             text-transform: uppercase;
-            font-size: 22px;
-            border-left: 10px solid #34495e;
-            padding-left: 15px;
-            margin-bottom: 25px;
+            border-bottom: 3px solid #f39c12; /* Color naranja industrial */
+            padding-bottom: 8px;
+            margin-bottom: 20px;
         }
 
-        /* Navegación */
-        .top-bar {
+        .action-bar {
+            background: #2c3e50;
+            padding: 12px;
             margin-bottom: 20px;
             display: flex;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .btn-link {
-            padding: 8px 16px;
+        /* Botones estilo sistema de gestión */
+        .btn-nav {
+            padding: 7px 14px;
             text-decoration: none;
+            font-size: 12px;
             font-weight: bold;
-            font-size: 13px;
-            border: 1px solid #34495e;
-            transition: 0.2s;
+            border: 1px solid #fff;
+            text-transform: uppercase;
         }
+        .btn-dash { background: transparent; color: white; }
+        .btn-new { background: #f39c12; color: white; border-color: #f39c12; }
+        .btn-nav:hover { background: #fff; color: #2c3e50; }
 
-        .btn-back { background: #34495e; color: white; }
-        .btn-back:hover { background: white; color: #34495e; }
-
-        .btn-add { background: #f39c12; color: white; border-color: #e67e22; }
-        .btn-add:hover { opacity: 0.8; }
-
-        /* Tabla Estilo Kinal */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
+        /* Tabla de Inventario */
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th {
-            background: #34495e;
-            color: #ecf0f1;
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #2c3e50;
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            text-transform: uppercase;
         }
-
         td {
             padding: 10px;
             border: 1px solid #bdc3c7;
             text-align: center;
         }
+        tr:nth-child(even) { background: #fafafa; }
 
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        tr:hover { background-color: #dfe6e9; }
-
-        /* Acciones con alertas */
-        .action-btn {
-            background: #bdc3c7;
-            color: #2c3e50;
+        .btn-tool {
+            background: #fff;
+            border: 1px solid #34495e;
             padding: 5px 10px;
-            font-size: 12px;
-            border: 1px solid #7f8c8d;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            margin: 2px;
-        }
-
-        .btn-danger { background: #e74c3c; color: white; border-color: #c0392b; }
-
-        .badge {
             font-size: 11px;
-            padding: 3px 7px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-del { color: #c0392b; border-color: #c0392b; }
+
+        .stock-status {
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 5px;
             border: 1px solid #27ae60;
             color: #27ae60;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-<div class="main-wrapper">
-    <h1>Inventario de Productos - KinalApp</h1>
+<div class="report-frame">
+    <h1>KinalApp // Control de Inventario</h1>
 
-    <div class="top-bar">
-        <a th:href="@{/}" class="btn-link btn-back">Regresar al dashboard</a>
-        <a th:href="@{/vista/productos/nuevo}" class="btn-link btn-add">+ REGISTRAR PRODUCTO</a>
+    <div class="action-bar">
+        <a th:href="@{/}" class="btn-nav btn-dash">Menú Principal </a>
+        <a th:href="@{/vista/productos/nuevo}" class="btn-nav btn-new">+ Registrar Artículo</a>
     </div>
 
     <table>
         <thead>
         <tr>
-            <th>CÓDIGO</th>
-            <th>NOMBRE</th>
-            <th>PRECIO UNITARIO</th>
-            <th>EXISTENCIA</th>
+            <th>SKU / CÓDIGO</th>
+            <th>DESCRIPCIÓN DEL PRODUCTO</th>
+            <th>COSTO UNITARIO</th>
+            <th>EXISTENCIA TOTAL</th>
             <th>ESTADO</th>
-            <th>GESTIÓN</th>
+            <th>OPERACIONES</th>
         </tr>
         </thead>
-
         <tbody>
         <tr th:each="p : ${productos}">
-            <td th:text="${p.codigoProducto}" style="font-weight: bold;"></td>
-            <td th:text="${p.nombreProducto}"></td>
+            <td th:text="${p.codigoProducto}" style="font-weight: bold; background: #fdfdfd;"></td>
+            <td th:text="${p.nombreProducto}" style="text-align: left; padding-left: 15px;"></td>
             <td th:text="'Q' + ${p.precio}"></td>
             <td th:text="${p.stock}"></td>
             <td>
-                <span class="badge" th:text="${p.estado == 1 ? 'DISPONIBLE' : 'AGOTADO'}"></span>
+                <span class="stock-status" th:text="${p.estado == 1 ? 'ACTIVO' : 'BAJA'}"></span>
             </td>
             <td>
-                <button class="action-btn"
-                        onclick="alert('Aviso: La edición del código de producto está restringida por seguridad de inventario.')">
-                    EDITAR
-                </button>
-
-                <button class="action-btn btn-danger"
-                        onclick="alert('Error: No se puede eliminar el producto. Existen registros de ventas vinculados a este código.')">
-                    ELIMINAR
-                </button>
+                <button class="btn-tool" onclick="alert('Sistema: El código de artículo es de solo lectura.')">MODIFICAR</button>
+                <button class="btn-tool btn-del" onclick="alert('Seguridad: Producto con movimientos contables. No se puede eliminar.')">BORRAR</button>
             </td>
         </tr>
         </tbody>
