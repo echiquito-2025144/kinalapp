@@ -2,72 +2,136 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registrar Venta</title>
+    <title>KinalApp - Formulario de Ventas</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
-        .card { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
-        h2 { color: #007bff; margin-top: 0; text-align: center; }
-        .form-group { margin-bottom: 18px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-        input:focus, select:focus { border-color: #007bff; outline: none; box-shadow: 0 0 5px rgba(0,123,255,0.2); }
-        .btn-submit { background-color: #28a745; color: white; border: none; padding: 14px; width: 100%; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
-        .btn-submit:hover { background-color: #218838; }
-        .btn-cancel { display: block; text-align: center; margin-top: 20px; color: #dc3545; text-decoration: none; font-weight: 500; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #dfe6e9;
+            padding: 50px 0;
+        }
+        .form-window {
+            background: white;
+            width: 480px;
+            margin: auto;
+            border: 2px solid #34495e;
+            box-shadow: 5px 5px 0px #2c3e50; /* Sombra sólida, no difusa */
+        }
+        .header-title {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .body-content { padding: 30px; }
+
+        .row-group { margin-bottom: 18px; }
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            box-sizing: border-box;
+            font-size: 13px;
+            background: #fdfdfd;
+        }
+        input:focus, select:focus { border-color: #27ae60; outline: none; background: #fff; }
+
+        .btn-register {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            text-transform: uppercase;
+            border-bottom: 3px solid #219150;
+        }
+        .btn-register:hover { background: #2ecc71; }
+
+        .nav-links {
+            text-align: center;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .back-link {
+            color: #c0392b;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .back-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Nueva Venta</h2>
-    <form th:action="@{/vista/ventas/guardar}" th:object="${venta}" method="post">
+<div class="form-window">
+    <div class="header-title">Ingreso de Nueva Transacción</div>
 
-        <div class="form-group">
-            <label>Código de Venta (ID):</label>
-            <input type="number" th:field="*{codigoVenta}" placeholder="Ingrese ID único" required />
+    <div class="body-content">
+        <form th:action="@{/vista/ventas/guardar}" th:object="${venta}" method="post">
+
+            <div class="row-group">
+                <label>Número de Documento (ID):</label>
+                <input type="number" th:field="*{codigoVenta}" placeholder="ID autogenerado" required />
+            </div>
+
+            <div class="row-group">
+                <label>Fecha de Emisión de Factura:</label>
+                <input type="date" th:field="*{fechaVenta}" required />
+            </div>
+
+            <div class="row-group">
+                <label>Cliente / NIT Receptor:</label>
+                <select th:field="*{cliente}" required>
+                    <option value="">-- SELECCIONAR CLIENTE --</option>
+                    <option th:each="c : ${clientes}"
+                            th:value="${c.DPICliente}"
+                            th:text="${c.nombreCliente + ' ' + c.apellidoCliente}"></option>
+                </select>
+            </div>
+
+            <div class="row-group">
+                <label>Vendedor en Turno:</label>
+                <select th:field="*{usuario}" required>
+                    <option value="">-- SELECCIONAR RESPONSABLE --</option>
+                    <option th:each="u : ${usuarios}"
+                            th:value="${u.codigoUsuario}"
+                            th:text="${u.username}"></option>
+                </select>
+            </div>
+
+            <div class="row-group">
+                <label>Cifra Total de Venta (Q):</label>
+                <input type="number" step="0.01" th:field="*{total}" placeholder="0.00" required />
+            </div>
+
+            <div class="row-group">
+                <label>Estado de Transacción:</label>
+                <select th:field="*{estado}">
+                    <option value="1">ACTIVA / EN PROCESO</option>
+                    <option value="0">CERRADA / FINALIZADA</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-register">PROCEDER A GUARDAR REGISTRO</button>
+        </form>
+
+        <div class="nav-links">
+            <a th:href="@{/vista/ventas}" class="back-link">[ CANCELAR Y SALIR ]</a>
         </div>
-
-        <div class="form-group">
-            <label>Fecha de Operación:</label>
-            <input type="date" th:field="*{fechaVenta}" required />
-        </div>
-
-        <div class="form-group">
-            <label>Cliente Receptor (FK):</label>
-            <select th:field="*{cliente}" required>
-                <option value="">-- Seleccione Cliente --</option>
-                <option th:each="c : ${clientes}"
-                        th:value="${c.DPICliente}"
-                        th:text="${c.nombreCliente + ' ' + c.apellidoCliente}"></option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Vendedor Asignado (FK):</label>
-            <select th:field="*{usuario}" required>
-                <option value="">-- Seleccione Vendedor --</option>
-                <option th:each="u : ${usuarios}"
-                        th:value="${u.codigoUsuario}"
-                        th:text="${u.username}"></option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Monto Total (Q):</label>
-            <input type="number" step="0.01" th:field="*{total}" placeholder="0.00" required />
-        </div>
-
-        <div class="form-group">
-            <label>Estado Inicial:</label>
-            <select th:field="*{estado}">
-                <option value="1">Activa</option>
-                <option value="0">Finalizada</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn-submit">Registrar Venta</button>
-        <a th:href="@{/vista/ventas}" class="btn-cancel">Cancelar y Volver</a>
-    </form>
+    </div>
 </div>
 
 </body>
