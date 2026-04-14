@@ -2,63 +2,120 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Nuevo Detalle</title>
+    <title>KinalApp - Registro Detalle</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
-        .card { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
-        h2 { color: #e67e22; text-align: center; margin-bottom: 25px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        .btn-save { background-color: #e67e22; color: white; border: none; padding: 14px; width: 100%; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
-        .btn-cancel { display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            padding: 40px;
+        }
+        .ticket-box {
+            background: #fff;
+            width: 450px;
+            margin: auto;
+            border: 1px solid #d35400;
+            border-top: 8px solid #d35400;
+        }
+        .ticket-header {
+            padding: 15px;
+            text-align: center;
+            background: #fdf2e9;
+            border-bottom: 1px solid #d35400;
+            font-weight: bold;
+            color: #d35400;
+        }
+        .ticket-body { padding: 25px; }
+
+        .input-row { margin-bottom: 15px; }
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            color: #a04000;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        input, select {
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+        input:focus, select:focus { border-color: #d35400; outline: none; background: #fffdfb; }
+
+        .btn-confirm {
+            background: #d35400;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+        .btn-confirm:hover { background: #ba4a00; }
+
+        .link-area {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+        .cancel-link { color: #7f8c8d; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Registrar Detalle</h2>
-    <form th:action="@{/vista/detalles/guardar}" th:object="${detalle}" method="post">
+<div class="ticket-box">
+    <div class="ticket-header">REGISTRO DE ITEM DE VENTA</div>
 
-        <div class="form-group">
-            <label>Código Detalle (PK):</label>
-            <input type="number" th:field="*{codigoDetalleVenta}" required />
+    <div class="ticket-body">
+        <form th:action="@{/vista/detalles/guardar}" th:object="${detalle}" method="post">
+
+            <div class="input-row">
+                <label>ID DE CONTROL (PK):</label>
+                <input type="number" th:field="*{codigoDetalleVenta}" required />
+            </div>
+
+            <div class="input-row">
+                <label>DOCUMENTO DE VENTA (FK):</label>
+                <select th:field="*{venta}" required>
+                    <option value="">-- SELECCIONE FACTURA --</option>
+                    <option th:each="v : ${ventas}" th:value="${v.codigoVenta}" th:text="'Factura No. ' + ${v.codigoVenta}"></option>
+                </select>
+            </div>
+
+            <div class="input-row">
+                <label>ARTÍCULO / PRODUCTO (FK):</label>
+                <select th:field="*{productos}" required>
+                    <option value="">-- SELECCIONE PRODUCTO --</option>
+                    <option th:each="p : ${productos}" th:value="${p.codigoProducto}" th:text="${p.nombreProducto}"></option>
+                </select>
+            </div>
+
+            <div class="input-row">
+                <label>CANTIDAD A VENDER:</label>
+                <input type="number" th:field="*{cantidad}" required />
+            </div>
+
+            <div class="input-row">
+                <label>VALOR UNITARIO (Q):</label>
+                <input type="number" step="0.01" th:field="*{precioUnitario}" required />
+            </div>
+
+            <div class="input-row">
+                <label>CÁLCULO SUB-TOTAL (Q):</label>
+                <input type="number" step="0.01" th:field="*{subtotal}" required />
+            </div>
+
+            <button type="submit" class="btn-confirm">CARGAR ITEM A VENTA</button>
+        </form>
+
+        <div class="link-area">
+            <a th:href="@{/vista/detalles}" class="cancel-link">[ CANCELAR Y VOLVER ]</a>
         </div>
-
-        <div class="form-group">
-            <label>Seleccionar Venta (FK):</label>
-            <select th:field="*{venta}" required>
-                <option value="">-- Elija la Factura --</option>
-                <option th:each="v : ${ventas}" th:value="${v.codigoVenta}" th:text="'Venta #' + ${v.codigoVenta}"></option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Seleccionar Producto (FK):</label>
-            <select th:field="*{productos}" required>
-                <option value="">-- Elija el Producto --</option>
-                <option th:each="p : ${productos}" th:value="${p.codigoProducto}" th:text="${p.nombreProducto}"></option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Cantidad:</label>
-            <input type="number" th:field="*{cantidad}" required />
-        </div>
-
-        <div class="form-group">
-            <label>Precio Unitario (Q):</label>
-            <input type="number" step="0.01" th:field="*{precioUnitario}" required />
-        </div>
-
-        <div class="form-group">
-            <label>Subtotal (Q):</label>
-            <input type="number" step="0.01" th:field="*{subtotal}" required />
-        </div>
-
-        <button type="submit" class="btn-save">Guardar Detalle</button>
-        <a th:href="@{/vista/detalles}" class="btn-cancel">Regresar</a>
-    </form>
+    </div>
 </div>
 
 </body>
