@@ -2,65 +2,114 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>KinalApp - Detalles de Venta</title>
+    <title>KinalApp - Desglose de Operaciones</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 40px; }
-        .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #e67e22; border-bottom: 3px solid #e67e22; padding-bottom: 10px; }
+        /* Estilo de Auditoría de Ventas */
+        body {
+            font-family: 'Courier New', Courier, monospace; /* Fuente tipo máquina para reportes */
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 30px;
+        }
+        .main-frame {
+            background: #ffffff;
+            border: 2px solid #d35400;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #d35400;
+            font-size: 20px;
+            border-bottom: 2px dashed #d35400;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+        }
 
-        /* Contenedor para alinear los botones superiores */
-        .nav-buttons { margin-bottom: 20px; display: flex; gap: 10px; }
+        .action-tray {
+            background: #fff8f1;
+            padding: 10px;
+            border: 1px solid #e67e22;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
 
-        .btn-nuevo { background-color: #e67e22; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
-        .btn-nuevo:hover { background-color: #d35400; }
+        /* Botones Estilo Ticket */
+        .btn-ticket {
+            padding: 8px 15px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid #d35400;
+            color: #d35400;
+            text-transform: uppercase;
+        }
+        .btn-dash { background: #343a40; color: white; border-color: #343a40; }
+        .btn-add-item { background: #d35400; color: white; }
+        .btn-ticket:hover { background: #fdf2e9; color: #d35400; }
 
-        /* Botón de Dashboard personalizado para este módulo */
-        .btn-dashboard { background-color: #343a40; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
-        .btn-dashboard:hover { background-color: #23272b; }
+        /* Tabla de Auditoría */
+        table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+        th {
+            background: #d35400;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #a04000;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+            color: #333;
+        }
+        tr:nth-child(even) { background: #fffcf9; }
 
-        table { width: 100%; border-collapse: collapse; }
-        th { background-color: #e67e22; color: white; padding: 15px; text-align: left; }
-        td { padding: 12px; border-bottom: 1px solid #eee; }
-        tr:hover { background-color: #fff5eb; }
-        .btn-action { padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; background: #fff; font-weight: bold; }
-        .btn-edit { color: #f0ad4e; }
-        .btn-delete { color: #d9534f; }
+        .row-btn {
+            background: #fff;
+            border: 1px solid #d35400;
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .row-btn-del { color: #c0392b; border-color: #c0392b; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Detalles de Artículos Vendidos</h1>
+<div class="main-frame">
+    <h1>REPORTE DETALLADO DE ARTÍCULOS VENDIDOS</h1>
 
-    <div class="nav-buttons">
-        <a th:href="@{/}" class="btn-dashboard">Volver al Dashboard</a>
-
-        <a th:href="@{/vista/detalles/nuevo}" class="btn-nuevo">+ Agregar Producto a Venta</a>
+    <div class="action-tray">
+        <a th:href="@{/}" class="btn-ticket btn-dash">REGRESAR AL MENÚ</a>
+        <a th:href="@{/vista/detalles/nuevo}" class="btn-ticket btn-add-item">+ AGREGAR ITEM A FACTURA</a>
     </div>
 
     <table>
         <thead>
         <tr>
-            <th>ID Detalle</th>
-            <th>No. Venta</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio U.</th>
-            <th>Subtotal</th>
-            <th>Acciones</th>
+            <th>ID DETALLE</th>
+            <th>NO. FACTURA</th>
+            <th>DESCRIPCIÓN ITEM</th>
+            <th>CANT.</th>
+            <th>PRECIO UNIT.</th>
+            <th>SUBTOTAL</th>
+            <th>AUDITORÍA</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="d : ${detalles}">
             <td th:text="${d.codigoDetalleVenta}" style="font-weight: bold;"></td>
             <td th:text="${d.venta != null ? d.venta.codigoVenta : 'N/A'}"></td>
-            <td th:text="${d.productos != null ? d.productos.nombreProducto : 'Desconocido'}"></td>
+            <td th:text="${d.productos != null ? d.productos.nombreProducto : 'Desconocido'}" style="text-align: left;"></td>
             <td th:text="${d.cantidad}"></td>
             <td th:text="'Q' + ${d.precioUnitario}"></td>
-            <td th:text="'Q' + ${d.subtotal}"></td>
+            <td th:text="'Q' + ${d.subtotal}" style="font-weight: bold;"></td>
             <td>
-                <button type="button" class="btn-action btn-edit" onclick="alert('No se permite editar detalles de venta para asegurar la integridad contable.')">Editar</button>
-                <button type="button" class="btn-action btn-delete" onclick="alert('No se puede eliminar el detalle: La llave primaria está vinculada a una factura activa.')">Eliminar</button>
+                <button class="row-btn" onclick="alert('Sistema: El detalle de factura es inalterable para proteger la contabilidad.')">EDITAR</button>
+                <button class="row-btn row-btn-del" onclick="alert('Acción Denegada: No se puede eliminar un item de una factura ya emitida.')">ELIMINAR</button>
             </td>
         </tr>
         </tbody>
