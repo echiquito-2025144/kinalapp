@@ -4,110 +4,180 @@
     <meta charset="UTF-8">
     <title>KinalApp - Control de Clientes</title>
     <style>
-        /* Estilo Estándar Administrativo */
+        /* Paleta de Colores KinalApp: Azul y Gris Industrial */
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #dfe6e9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6; /* Gris muy claro de fondo */
             margin: 0;
-            padding: 30px;
+            padding: 40px;
         }
+
         .main-container {
             background: #ffffff;
-            padding: 20px;
-            border: 1px solid #b2bec3;
-            max-width: 1200px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 1100px;
             margin: auto;
+            border-top: 8px solid #2980b9; /* Franja azul como el Registro */
         }
+
         h1 {
             color: #2c3e50;
-            font-size: 24px;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 5px;
-            margin-top: 0;
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Indicador visual junto al título */
+        h1::before {
+            content: "";
+            width: 5px;
+            height: 25px;
+            background-color: #2980b9;
+            margin-right: 15px;
+            display: inline-block;
         }
 
         .bar-tools {
-            background: #f1f2f6;
-            padding: 10px;
-            border: 1px solid #ccc;
-            margin-bottom: 15px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+            margin-bottom: 25px;
             display: flex;
-            gap: 10px;
+            justify-content: space-between; /* Alinea botones a los extremos */
+            align-items: center;
         }
 
-        /* Botones Rectos */
+        /* Botones Estilizados */
         .btn {
-            padding: 8px 15px;
+            padding: 10px 20px;
             text-decoration: none;
             font-size: 13px;
-            font-weight: bold;
-            border: 1px solid #2c3e50;
-            cursor: pointer;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
-        .btn-home { background: #2c3e50; color: white; }
-        .btn-add { background: #0984e3; color: white; }
-        .btn:hover { opacity: 0.8; }
 
-        /* Tabla de Datos */
-        table { width: 100%; border-collapse: collapse; margin-top: 5px; background: #fff; }
+        .btn-home {
+            background: #ecf0f1;
+            color: #2c3e50;
+            border: 1px solid #bdc3c7;
+        }
+
+        .btn-add {
+            background: #2980b9;
+            color: white;
+            border: 1px solid #2980b9;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Tabla de Datos Profesional */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            overflow: hidden;
+        }
+
         th {
             background: #2c3e50;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            font-size: 13px;
-            border: 1px solid #1e272e;
+            color: #ffffff;
+            padding: 15px;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            border: none;
         }
-        td {
-            padding: 8px;
-            border: 1px solid #bdc3c7;
-            font-size: 13px;
-            text-align: center;
-        }
-        tr:nth-child(even) { background: #f9f9f9; }
 
-        .op-btn {
-            background: #ecf0f1;
-            border: 1px solid #7f8c8d;
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        tr:hover {
+            background-color: #f1f7ff; /* Resalte suave al pasar el mouse */
+        }
+
+        /* Estado Activo / Inactivo con etiquetas */
+        .status {
             padding: 4px 8px;
+            border-radius: 12px;
             font-size: 11px;
             font-weight: bold;
-            color: #2c3e50;
         }
-        .op-del { color: #d63031; border-color: #d63031; }
+        .status-active { background: #d4edda; color: #155724; }
+        .status-inactive { background: #f8d7da; color: #721c24; }
+
+        /* Botones de Operación */
+        .op-btn {
+            background: transparent;
+            border: 1px solid #cbd5e0;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #4a5568;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .op-btn:hover { background: #edf2f7; border-color: #a0aec0; }
+
+        .op-del {
+            color: #e53e3e;
+            border-color: #feb2b2;
+        }
+
+        .op-del:hover { background: #fff5f5; border-color: #e53e3e; }
     </style>
 </head>
 <body>
 
 <div class="main-container">
-    <h1>MÓDULO: CONTROL DE CLIENTES</h1>
+    <h1>Control de Cartera de Clientes</h1>
 
     <div class="bar-tools">
-        <a th:href="@{/}" class="btn btn-home">Menú Principal</a>
-        <a th:href="@{/vista/clientes/nuevo}" class="btn btn-add">+ Nuevo Registro</a>
+        <a th:href="@{/}" class="btn btn-home">⬅ Regresar al Dashboard</a>
+        <a th:href="@{/vista/clientes/nuevo}" class="btn btn-add">+ Registrar Nuevo Cliente</a>
     </div>
 
     <table>
         <thead>
         <tr>
-            <th>No. DPI</th>
-            <th>NOMBRES</th>
-            <th>APELLIDOS</th>
-            <th>DIRECCIÓN</th>
-            <th>ESTADO</th>
-            <th>GESTIÓN</th>
+            <th>DPI Identificación</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Dirección de Domicilio</th>
+            <th>Estado</th>
+            <th style="text-align: center;">Acciones de Gestión</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="c : ${clientes}">
-            <td th:text="${c.DPICliente}"></td>
+            <td th:text="${c.DPICliente}" style="font-weight: bold; color: #2d3748;"></td>
             <td th:text="${c.nombreCliente}"></td>
             <td th:text="${c.apellidoCliente}"></td>
             <td th:text="${c.direccion}"></td>
-            <td th:text="${c.estado == 1 ? 'ACTIVO' : 'INACTIVO'}"></td>
             <td>
-                <button class="op-btn" onclick="alert('Sistema: La edición de registros DPI está protegida.')">EDITAR</button>
-                <button class="op-btn op-del" onclick="alert('Error: El cliente posee registros vinculados en Ventas.')">ELIMINAR</button>
+                <span th:class="${c.estado == 1 ? 'status status-active' : 'status status-inactive'}"
+                      th:text="${c.estado == 1 ? 'ACTIVO' : 'INACTIVO'}">
+                </span>
+            </td>
+            <td style="text-align: center;">
+                <button class="op-btn" onclick="alert('Sistema: Entrando a modo edición...')">EDITAR</button>
+                <button class="op-btn op-del" onclick="alert('Advertencia: Verificando integridad referencial...')">ELIMINAR</button>
             </td>
         </tr>
         </tbody>
