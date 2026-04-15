@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Registro</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #2c3e50; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; width: 350px; padding: 40px; border-top: 8px solid #3498db; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        h2 { text-align: center; color: #2c3e50; text-transform: uppercase; margin-bottom: 25px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 11px; font-weight: bold; color: #7f8c8d; margin-bottom: 5px; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; box-sizing: border-box; }
+        .btn { width: 100%; padding: 12px; border: none; background: #3498db; color: white; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .link { display: block; text-align: center; margin-top: 15px; font-size: 12px; color: #7f8c8d; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>Crear Cuenta</h2>
+    <form th:action="@{/registro/guardar}" method="post">
+        <div class="form-group">
+            <label>NOMBRE DE USUARIO:</label>
+            <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+            <label>CORREO ELECTRÓNICO:</label>
+            <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label>CONTRASEÑA:</label>
+            <input type="password" name="password" required>
+        </div>
+        <button type="submit" class="btn">Registrarme</button>
+    </form>
+    <a th:href="@{/login}" class="link">Volver al Login</a>
+</div>
+</body>
+</html>
