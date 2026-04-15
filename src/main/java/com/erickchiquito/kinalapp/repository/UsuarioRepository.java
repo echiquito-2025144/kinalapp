@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     List<Usuario> findByEstado(int estado);
+
+    Usuario findByUsername(String username);
 }
