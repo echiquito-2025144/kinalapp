@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
@@ -28,13 +29,30 @@ public class LoginController {
 
     @PostMapping("/registro/guardar")
     public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario) {
-        // Asignamos valores por defecto necesarios para KinalApp
+       
         usuario.setRol("Vendedor");
         usuario.setEstado(1);
 
-        // Guardamos el objeto completo mapeado desde el form
+
         usuarioRepository.save(usuario);
 
         return "redirect:/login?success";
     }
+
+    @PostMapping("/login")
+    public String autenticar(@RequestParam String username,
+                             @RequestParam String password,
+                             Model model) {
+
+        Usuario user = usuarioRepository.findByUsername(username);
+
+        if (user != null && user.getPassword().equals(password)) {
+            return "redirect:/";
+        } else {
+            model.addAttribute("error", "Usuario o contraseña incorrectos");
+            return "login";
+        }
+
+    }
+
 }
