@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Ficha de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #ecf0f1;
+            padding-top: 50px;
+        }
+        .form-box {
+            background: #ffffff;
+            width: 420px;
+            margin: auto;
+            border: 2px solid #27ae60;
+        }
+        .header-box {
+            background: #27ae60;
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .body-box { padding: 25px; }
+
+        .field-group { margin-bottom: 15px; }
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+        input:focus { border-color: #27ae60; outline: none; }
+
+        .btn-submit {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+        .btn-submit:hover { background: #219150; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        .link-footer {
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px 10px;
+        }
+        .link-footer:hover { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<div class="form-box">
+    <div class="header-box">DATOS DE CREDENCIAL DE USUARIO</div>
+
+    <div class="body-box">
+        <form th:action="@{/vista/usuarios/guardar}" th:object="${usuario}" method="post">
+
+            <div class="field-group">
+                <label>CÓDIGO ÚNICO (PK):</label>
+                <input type="number" th:field="*{codigoUsuario}" required />
+            </div>
+
+            <div class="field-group">
+                <label>NOMBRE DE USUARIO:</label>
+                <input type="text" th:field="*{username}" required />
+            </div>
+
+            <div class="field-group">
+                <label>CONTRASEÑA:</label>
+                <input type="password" th:field="*{password}" required />
+            </div>
+
+            <div class="field-group">
+                <label>EMAIL INSTITUCIONAL:</label>
+                <input type="email" th:field="*{email}" required />
+            </div>
+
+            <div class="field-group">
+                <label>ROL / PUESTO:</label>
+                <input type="text" th:field="*{rol}" placeholder="Ej: Admin o Vendedor" />
+            </div>
+
+            <div class="field-group">
+                <label>ESTADO (1=HABILITADO):</label>
+                <input type="number" th:field="*{estado}" required />
+            </div>
+
+            <button type="submit" class="btn-submit">CONFIRMAR REGISTRO</button>
+        </form>
+
+        <div class="nav-footer">
+            <a th:href="@{/vista/usuarios}" class="link-footer">[ LISTADO USUARIOS ]</a>
+            <a th:href="@{/}" class="link-footer">[ DASHBOARD ]</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Registro de Ventas</title>
+    <style>
+        /* Estilo de Sistema Contable Administrativo */
+        body {
+            font-family: 'Verdana', Geneva, sans-serif;
+            background-color: #f1f2f6;
+            margin: 0;
+            padding: 30px;
+        }
+        .report-container {
+            background: #ffffff;
+            padding: 20px;
+            border: 2px solid #2c3e50;
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 22px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .action-header {
+            background: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Botones de Función */
+        .btn-sys {
+            padding: 8px 18px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid #2c3e50;
+            text-transform: uppercase;
+        }
+        .btn-home { background: #34495e; color: white; }
+        .btn-new-sale { background: #27ae60; color: white; border-color: #219150; }
+        .btn-sys:hover { background: white; color: #2c3e50; }
+
+        /* Tabla de Facturación */
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #2c3e50;
+            letter-spacing: 1px;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            text-align: center;
+        }
+        tr:nth-child(even) { background: #fdfdfd; }
+        tr:hover { background: #f0f3f4; }
+
+        .btn-row {
+            background: white;
+            border: 1px solid #7f8c8d;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #2c3e50;
+        }
+        .btn-row:hover { background: #eee; }
+
+        .status-pill {
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border: 1px solid #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-container">
+    <h1>Bitácora de Control de Ventas</h1>
+
+    <div class="action-header">
+        <a th:href="@{/}" class="btn-sys btn-home">MENÚ DE DASHBOARD</a>
+        <a th:href="@{/vista/ventas/nuevo}" class="btn-sys btn-new-sale">+ GENERAR NUEVA VENTA</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID TRANSACCIÓN</th>
+            <th>FECHA EMISIÓN</th>
+            <th>CLIENTE / RECEPTOR</th>
+            <th>VENDEDOR RESPONSABLE</th>
+            <th>TOTAL (Q)</th>
+            <th>ESTADO</th>
+            <th>GESTIÓN</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="v : ${ventas}">
+            <td th:text="${v.codigoVenta}" style="font-weight: bold;"></td>
+            <td th:text="${v.fechaVenta}"></td>
+            <td th:text="${v.cliente != null} ? ${v.cliente.nombreCliente + ' ' + v.cliente.apellidoCliente} : 'Sin Cliente'"></td>
+            <td th:text="${v.usuario != null} ? ${v.usuario.username} : 'N/A'"></td>
+            <td th:text="'Q ' + ${v.total}" style="color: #27ae60; font-weight: bold;"></td>
+            <td>
+                <span class="status-pill" th:text="${v.estado == 1 ? 'REGISTRO ACTIVO' : 'TRANSACCIÓN CERRADA'}"></span>
+            </td>
+            <td>
+                <button type="button" class="btn-row"
+                        onclick="alert('Control Interno: No se permiten modificaciones manuales en registros de venta finalizados.')">
+                    EDITAR
+                </button>
+                <button type="button" class="btn-row" style="color: #c0392b; border-color: #c0392b;"
+                        onclick="alert('Seguridad: El registro contable no puede ser borrado por leyes de auditoría interna.')">
+                    ELIMINAR
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

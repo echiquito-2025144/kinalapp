@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Registro Detalle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            padding: 40px;
+        }
+        .ticket-box {
+            background: #fff;
+            width: 450px;
+            margin: auto;
+            border: 1px solid #d35400;
+            border-top: 8px solid #d35400;
+        }
+        .ticket-header {
+            padding: 15px;
+            text-align: center;
+            background: #fdf2e9;
+            border-bottom: 1px solid #d35400;
+            font-weight: bold;
+            color: #d35400;
+        }
+        .ticket-body { padding: 25px; }
+
+        .input-row { margin-bottom: 15px; }
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            color: #a04000;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        input, select {
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+        input:focus, select:focus { border-color: #d35400; outline: none; background: #fffdfb; }
+
+        .btn-confirm {
+            background: #d35400;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+        .btn-confirm:hover { background: #ba4a00; }
+
+        .link-area {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+        .cancel-link { color: #7f8c8d; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="ticket-box">
+    <div class="ticket-header">REGISTRO DE ITEM DE VENTA</div>
+
+    <div class="ticket-body">
+        <form th:action="@{/vista/detalles/guardar}" th:object="${detalle}" method="post">
+
+            <div class="input-row">
+                <label>ID DE CONTROL (PK):</label>
+                <input type="number" th:field="*{codigoDetalleVenta}" required />
+            </div>
+
+            <div class="input-row">
+                <label>DOCUMENTO DE VENTA (FK):</label>
+                <select th:field="*{venta}" required>
+                    <option value="">-- SELECCIONE FACTURA --</option>
+                    <option th:each="v : ${ventas}" th:value="${v.codigoVenta}" th:text="'Factura No. ' + ${v.codigoVenta}"></option>
+                </select>
+            </div>
+
+            <div class="input-row">
+                <label>ARTÍCULO / PRODUCTO (FK):</label>
+                <select th:field="*{productos}" required>
+                    <option value="">-- SELECCIONE PRODUCTO --</option>
+                    <option th:each="p : ${productos}" th:value="${p.codigoProducto}" th:text="${p.nombreProducto}"></option>
+                </select>
+            </div>
+
+            <div class="input-row">
+                <label>CANTIDAD A VENDER:</label>
+                <input type="number" th:field="*{cantidad}" required />
+            </div>
+
+            <div class="input-row">
+                <label>VALOR UNITARIO (Q):</label>
+                <input type="number" step="0.01" th:field="*{precioUnitario}" required />
+            </div>
+
+            <div class="input-row">
+                <label>CÁLCULO SUB-TOTAL (Q):</label>
+                <input type="number" step="0.01" th:field="*{subtotal}" required />
+            </div>
+
+            <button type="submit" class="btn-confirm">CARGAR ITEM A VENTA</button>
+        </form>
+
+        <div class="link-area">
+            <a th:href="@{/vista/detalles}" class="cancel-link">[ CANCELAR Y VOLVER ]</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
