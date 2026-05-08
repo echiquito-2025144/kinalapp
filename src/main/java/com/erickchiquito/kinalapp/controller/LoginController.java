@@ -34,7 +34,7 @@ public class LoginController {
         usuario.setEstado(1);
 
 
-        usuarioRepository.save(usuario);
+        usuarioRepository.saveAndFlush(usuario);
 
         return "redirect:/login?success";
     }
