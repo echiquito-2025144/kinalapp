@@ -34,25 +34,9 @@ public class LoginController {
         usuario.setEstado(1);
 
 
-        usuarioRepository.save(usuario);
+        usuarioRepository.saveAndFlush(usuario);
 
         return "redirect:/login?success";
-    }
-
-    @PostMapping("/login")
-    public String autenticar(@RequestParam String username,
-                             @RequestParam String password,
-                             Model model) {
-
-        Usuario user = usuarioRepository.findByUsername(username);
-
-        if (user != null && user.getPassword().equals(password)) {
-            return "redirect:/";
-        } else {
-            model.addAttribute("error", "Usuario o contraseña incorrectos");
-            return "login";
-        }
-
     }
 
 }
