@@ -3,7 +3,7 @@ package com.erickchiquito.kinalapp.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
