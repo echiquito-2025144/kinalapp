@@ -20,4 +20,6 @@ public interface IUsuarioService {
     void eliminar(int codigoUsuario);
 
     boolean existePorCodigo(int codigoUsuario);
+
+    Usuario actualizarRol(int codigoUsuario, String nuevoRol);
 }
