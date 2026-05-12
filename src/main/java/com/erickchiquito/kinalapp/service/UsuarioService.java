@@ -26,7 +26,6 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Usuario guardar(Usuario usuario) {
-
         if (usuario.getRol() == null || usuario.getRol().isEmpty()) {
             usuario.setRol("USER");
         }
@@ -53,7 +52,8 @@ public class UsuarioService implements IUsuarioService {
         Usuario usuario = usuarioRepository.findById(codigoUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con código: " + codigoUsuario));
 
-       if (usuario.getNombreUsuario().equals("erick_admin") && nuevoRol.equalsIgnoreCase("USER")) {
+
+        if (usuario.getUsername().equals("erick_admin") && nuevoRol.equalsIgnoreCase("USER")) {
             throw new IllegalArgumentException("Operación denegada: El Administrador Principal no puede ser degradado a Usuario Normal.");
         }
 
@@ -66,7 +66,7 @@ public class UsuarioService implements IUsuarioService {
         Usuario usuario = usuarioRepository.findById(codigoUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con código: " + codigoUsuario));
 
-        if (usuario.getNombreUsuario().equals("erick_admin")) {
+        if (usuario.getUsername().equals("erick_admin")) {
             throw new RuntimeException("No se puede eliminar al Administrador Principal.");
         }
 
